@@ -36,22 +36,29 @@ function counter() {
 
 //url = baseURL + '?q=' + query + '&app_id=' + apiKey + '&app_key' + key + "&from=0&to=100";
 function fetchResults() {
-    let random = Math.floor((Math.random() * 100) + 1);
-    let query = ["chicken", "beef", "cake", "iceCream", "fish", "burger", "steak"]; //an empty query that will be generated randomly
+    let query = ["chicken", "beef", "cake", "ice%20cream", "fish", "burger", "steak", "drinks",]; //an empty query that will be generated randomly
     let randQuery = query[Math.floor(Math.random() * query.length)];
-    console.log(randQuery);
-    console.log(random);
+    console.log("randQuery =",randQuery);
     const testURL = `https://api.edamam.com/search?q=${randQuery}&app_id=${apiKey}&app_key=${key}&from=0&to=100`; //search for recipes in english from edamam
     fetch(testURL, {
             mode: 'cors'
         })
         .then(function (response) {
-            //console.log(response);
+            console.log("response =",response);
             return response.json();
         })
         .then((json) => {
-            console.log(json);
-            console.log(json.hits[`${random}`].recipe.image);
+            if (json.count >= 100) 
+            {
+                random = Math.floor((Math.random() * 100) + 1);
+                console.log("random =",random);
+            } else {
+                random = Math.floor((Math.random() * json.count) + 1);
+                console.log("random(else) =",random);
+            }
+            console.log("json =",json);
+            console.log("image =",json.hits[`${random}`].recipe.image);
+            console.log("count =",json.count)
             displayResults(json);
             //display the recipe
             function displayResults(json) {
@@ -67,31 +74,41 @@ function fetchResults() {
                 let break3 = document.createElement("br");
                 let break4 = document.createElement("br");
                 section.appendChild(break1);
+                //name 
+                let labels = json.hits[`${random}`].recipe.label;
+                let label = document.createElement('label');
+                let labelSt = labels.toString();
+                var textnode1 = document.createTextNode(labelSt); 
+                label.appendChild(textnode1);                              
+                section.appendChild(label);
+                section.appendChild(break2);
                 //picture
                 let pictureURL = json.hits[`${random}`].recipe.image;
                 let img = document.createElement('img');
                 img.src = pictureURL;
-                console.log(pictureURL);
                 section.appendChild(img);
-                section.appendChild(break2);
+                section.appendChild(break3);
                 //ingredients
                 let ingredients = json.hits[`${random}`].recipe.ingredientLines
                 let items = document.createElement('items');
                 let ingSt = ingredients.toString();
-                var textnode = document.createTextNode(ingSt); 
-                items.appendChild(textnode);                              
+                var textnode2 = document.createTextNode(ingSt); 
+                items.appendChild(textnode2);                              
                 section.appendChild(items);
-                section.appendChild(break3);
+                section.appendChild(break4);
                 //url
-                let URL = json.hits[`${random}`].recipe.url
-                let url = document.createElement('url');
-                let urlSt = URL.toString();
-                var textnode2 = document.createTextNode(urlSt);       
-                url.appendChild(textnode2);                          
-                section.appendChild(url);
+                let recURL = json.hits[`${random}`].recipe.url;
+                let URL = document.createElement('a');
+                let button = document.createElement('button')
+                let message = document.createTextNode("Link to recipe's website!")
+                URL.href = recURL;  
+                URL.target = "_blank";                 
+                section.appendChild(URL);
+                URL.appendChild(button);
+                button.appendChild(message);
                 
             }
         })
-        .catch()
+        .catch(() => console.log("catch"))
 }
 
