@@ -34,13 +34,14 @@ function counter() {
     }
 }
 
-//url = baseURL + '?q=' + query + '&app_id=' + apiKey + '&app_key' + key + "&from=0&to=100";
+
 function fetchResults() {
     let query = ["chicken", "beef", "cake", "ice%20cream", "fish", "burger", "steak", "drinks",]; //an empty query that will be generated randomly
     let randQuery = query[Math.floor(Math.random() * query.length)];
     console.log("randQuery =",randQuery);
-    const testURL = `https://api.edamam.com/search?q=${randQuery}&app_id=${apiKey}&app_key=${key}&from=0&to=100`; //search for recipes in english from edamam
-    fetch(testURL, {
+    const baseURL = `https://api.edamam.com/search?q=${randQuery}&app_id=${apiKey}&app_key=${key}&from=0&to=100`; //search for recipes in english from edamam
+    fetch(baseURL, {
+
             mode: 'cors'
         })
         .then(function (response) {
@@ -99,8 +100,8 @@ function fetchResults() {
                 //url
                 let recURL = json.hits[`${random}`].recipe.url;
                 let URL = document.createElement('a');
-                let button = document.createElement('button')
-                let message = document.createTextNode("Link to recipe's website!")
+                let button = document.createElement('button');
+                let message = document.createTextNode("Link to recipe's website!");
                 URL.href = recURL;  
                 URL.target = "_blank";                 
                 section.appendChild(URL);
