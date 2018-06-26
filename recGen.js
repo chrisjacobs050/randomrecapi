@@ -90,13 +90,23 @@ function fetchResults() {
                 section.appendChild(img);
                 section.appendChild(break3);
                 //ingredients
-                let ingredients = json.hits[`${random}`].recipe.ingredientLines
-                let items = document.createElement('items');
-                let ingSt = ingredients.toString();
-                var textnode2 = document.createTextNode(ingSt); 
-                items.appendChild(textnode2);                              
+                let ingredients = json.hits[`${random}`].recipe.ingredientLines.length;
+                let items = document.createElement('ol');
                 section.appendChild(items);
-                section.appendChild(break4);
+                console.log("legnth =",json.hits[`${random}`].recipe.ingredients.length);
+                    for (let i = 0; i <=ingredients; i++){
+                        if (i !== ingredients) {
+                        var recipeIngredients = json.hits[`${random}`].recipe.ingredients[i].text;  
+                        let points = document.createElement('li');
+                        points.append(recipeIngredients);
+                        console.log(points);
+                        items.appendChild(points);
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                
                 //url
                 let recURL = json.hits[`${random}`].recipe.url;
                 let URL = document.createElement('a');
