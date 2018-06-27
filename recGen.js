@@ -13,23 +13,23 @@ var clickCount = 0;
 function myFunction() {
     if (clickCount > 0) {
         clickCount = clickCount - 1;
-        console.log(clickCount);
+        //console.log(clickCount);
     } else {
         clickCount == 0;
-        console.log(clickCount);
+        //console.log(clickCount);
     }
 }
 
 function counter() {
     var clickLimit = 5; //Max number of clicks
     if (clickCount == clickLimit) {
-        console.log("5");
+        //console.log("5");
         alert("you may only get 5 recipes per minute, sorry!");
         return false;
     } else {
         fetchResults();
         clickCount++;
-        console.log(clickCount);
+        //console.log(clickCount);
         return true;
     }
 }
@@ -38,28 +38,28 @@ function counter() {
 function fetchResults() {
     let query = ["chicken", "beef", "cake", "ice%20cream", "fish", "burger", "steak", "drinks",]; //an empty query that will be generated randomly
     let randQuery = query[Math.floor(Math.random() * query.length)];
-    console.log("randQuery =",randQuery);
+    //console.log("randQuery =",randQuery);
     const baseURL = `https://api.edamam.com/search?q=${randQuery}&app_id=${apiKey}&app_key=${key}&from=0&to=100`; //search for recipes in english from edamam
     fetch(baseURL, {
 
             mode: 'cors'
         })
         .then(function (response) {
-            console.log("response =",response);
+            //console.log("response =",response);
             return response.json();
         })
         .then((json) => {
             if (json.count >= 100) 
             {
                 random = Math.floor((Math.random() * 100) + 1);
-                console.log("random =",random);
+                //console.log("random =",random);
             } else {
                 random = Math.floor((Math.random() * json.count) + 1);
                 console.log("random(else) =",random);
             }
-            console.log("json =",json);
-            console.log("image =",json.hits[`${random}`].recipe.image);
-            console.log("count =",json.count)
+            //console.log("json =",json);
+            //console.log("image =",json.hits[`${random}`].recipe.image);
+            //console.log("count =",json.count)
             displayResults(json);
             //display the recipe
             function displayResults(json) {
@@ -96,13 +96,13 @@ function fetchResults() {
                 let ingredients = json.hits[`${random}`].recipe.ingredientLines.length;
                 let items = document.createElement('ol');
                 section.appendChild(items);
-                console.log("legnth =",json.hits[`${random}`].recipe.ingredients.length);
+                //console.log("legnth =",json.hits[`${random}`].recipe.ingredients.length);
                     for (let i = 0; i <=ingredients; i++){
                         if (i !== ingredients) {
                         var recipeIngredients = json.hits[`${random}`].recipe.ingredients[i].text;  
                         let points = document.createElement('li');
                         points.append(recipeIngredients);
-                        console.log(points);
+                        //console.log(points);
                         items.appendChild(points);
                         }
                         else{

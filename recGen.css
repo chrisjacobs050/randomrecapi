@@ -11,6 +11,13 @@ body
 {
     display: inline-block;
 }
+.generate
+{
+    background-color:#FFABA4;
+    border: none;
+
+
+}
 section
 {
     position:relative;
