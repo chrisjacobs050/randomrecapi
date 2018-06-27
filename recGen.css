@@ -11,5 +11,34 @@ body
 {
     display: inline-block;
 }
+section
+{
+    position:relative;
+    width: 50%;
+    left: 25%;
+    text-align:center;
+    background-color: transparent;
+}
+#label
+{
+    background-color: transparent;
+    color:  black;
+    text-align: center;
+}
 
+ol{
+    position:relative;
+    border: 3px solid #347B98;
+    background-color: #F0F7D4;
+    margin: 10px;
+    padding: 10px;
+    text-align:center;
+    list-style: none; 
+}
+ #button
+{
+    text-align: center;
+    border:1px solid #092834;
+    background-color:rgba(190, 232, 23, 0.445);
+}
 

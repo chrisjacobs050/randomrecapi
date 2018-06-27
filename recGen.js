@@ -72,8 +72,8 @@ function fetchResults() {
                 //breaks
                 let break1 = document.createElement("br");
                 let break2 = document.createElement("br");
+                let break21 = document.createElement("br");
                 let break3 = document.createElement("br");
-                let break4 = document.createElement("br");
                 section.appendChild(break1);
                 //name 
                 let labels = json.hits[`${random}`].recipe.label;
@@ -82,11 +82,14 @@ function fetchResults() {
                 var textnode1 = document.createTextNode(labelSt); 
                 label.appendChild(textnode1);                              
                 section.appendChild(label);
+                label.id = "label";
                 section.appendChild(break2);
+                section.appendChild(break21);
                 //picture
                 let pictureURL = json.hits[`${random}`].recipe.image;
                 let img = document.createElement('img');
                 img.src = pictureURL;
+                img.id="img";
                 section.appendChild(img);
                 section.appendChild(break3);
                 //ingredients
@@ -113,7 +116,9 @@ function fetchResults() {
                 let button = document.createElement('button');
                 let message = document.createTextNode("Link to recipe's website!");
                 URL.href = recURL;  
-                URL.target = "_blank";                 
+                URL.target = "_blank";
+                URL.id = "link";
+                button.id = "button";                 
                 section.appendChild(URL);
                 URL.appendChild(button);
                 button.appendChild(message);
