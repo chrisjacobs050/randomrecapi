@@ -4,6 +4,9 @@ const apiKey = "94fbe7ee" //This is the application ID, you should send with eac
 const submitBtn = document.querySelector('.generate');
 //Random Button - when clicking this a random recipe will be collected from the API
 
+//Wanted Food Item 
+
+const wantedFood =  document.querySelector('.wantedItem');
 //Limits random clicks to 5 per minute
 const generate = document.querySelector('.generate');
 generate.addEventListener('click', counter);
@@ -28,6 +31,7 @@ function counter() {
         return false;
     } else {
         fetchResults();
+        console.log( "Wanted:", wantedFood.value);
         clickCount++;
         //console.log(clickCount);
         return true;
@@ -39,7 +43,13 @@ function fetchResults() {
     let query = ["chicken", "beef", "cake", "ice%20cream", "fish", "burger", "steak", "drinks",]; //an empty query that will be generated randomly
     let randQuery = query[Math.floor(Math.random() * query.length)];
     //console.log("randQuery =",randQuery);
-    const baseURL = `https://api.edamam.com/search?q=${randQuery}&app_id=${apiKey}&app_key=${key}&from=0&to=100`; //search for recipes in english from edamam
+
+    
+    baseURL = `https://api.edamam.com/search?q=${randQuery}&app_id=${apiKey}&app_key=${key}&from=0&to=100`; //search for recipes in english from edamam
+    if(wantedFood.value !== '') { // if start date equals somthing then do the following 
+      baseURL = `https://api.edamam.com/search?q=${wantedFood.value}&app_id=${apiKey}&app_key=${key}&from=0&to=100`; //this line adds a start data if the user specifies
+      console.log(baseURL)  
+    };
     fetch(baseURL, {
 
             mode: 'cors'
